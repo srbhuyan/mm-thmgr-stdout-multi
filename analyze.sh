@@ -551,62 +551,98 @@ done
 
 # Generate CSV files for fit.py
 # time-serial.csv
-echo "$iva_name,time" > time-serial.csv
+echo "$iva_name,size,time" > time-serial.csv
 for i in "${!iva_arr[@]}"; do
   # Extract all columns from the row for multivariate fitting
   echo "${iva_arr[$i]},${time_serial[$i]}" >> time-serial.csv
 done
+# Sort by time column (last column)
+FILE="time-serial.csv"
+NCOLS=$(head -1 "$FILE" | awk -F',' '{print NF}')
+(head -n 1 "$FILE" && tail -n +2 "$FILE" | sort -t',' -k"$NCOLS" -n) > "${FILE}.tmp" && mv "${FILE}.tmp" "$FILE"
 
 # time-parallel.csv
 echo "core,time" > time-parallel.csv
 for i in "${!core[@]}"; do
   echo "${core[$i]},${time_parallel[$i]}" >> time-parallel.csv
 done
+# Sort by time column (last column)
+FILE="time-parallel.csv"
+NCOLS=$(head -1 "$FILE" | awk -F',' '{print NF}')
+(head -n 1 "$FILE" && tail -n +2 "$FILE" | sort -t',' -k"$NCOLS" -n) > "${FILE}.tmp" && mv "${FILE}.tmp" "$FILE"
 
 # time-parallel-slow.csv
 echo "core,time" > time-parallel-slow.csv
 for i in "${!core[@]}"; do
   echo "${core[$i]},${time_parallel_slow[$i]}" >> time-parallel-slow.csv
 done
+# Sort by time column (last column)
+FILE="${1:-time-parallel-slow.csv}"
+NCOLS=$(head -1 "$FILE" | awk -F',' '{print NF}')
+(head -n 1 "$FILE" && tail -n +2 "$FILE" | sort -t',' -k"$NCOLS" -n) > "${FILE}.tmp" && mv "${FILE}.tmp" "$FILE"
 
 # space-serial.csv
-echo "$iva_name,memory" > space-serial.csv
+echo "$iva_name,size,memory" > space-serial.csv
 for i in "${!iva_arr[@]}"; do
   # Extract all columns from the row for multivariate fitting
   echo "${iva_arr[$i]},${space_serial[$i]}" >> space-serial.csv
 done
+# Sort by memory column (last column)
+FILE="space-serial.csv"
+NCOLS=$(head -1 "$FILE" | awk -F',' '{print NF}')
+(head -n 1 "$FILE" && tail -n +2 "$FILE" | sort -t',' -k"$NCOLS" -n) > "${FILE}.tmp" && mv "${FILE}.tmp" "$FILE"
 
 # space-parallel.csv
 echo "core,memory" > space-parallel.csv
 for i in "${!core[@]}"; do
   echo "${core[$i]},${space_parallel[$i]}" >> space-parallel.csv
 done
+# Sort by memory column (last column)
+FILE="space-parallel.csv"
+NCOLS=$(head -1 "$FILE" | awk -F',' '{print NF}')
+(head -n 1 "$FILE" && tail -n +2 "$FILE" | sort -t',' -k"$NCOLS" -n) > "${FILE}.tmp" && mv "${FILE}.tmp" "$FILE"
 
 # power-serial.csv
-echo "$iva_name,power" > power-serial.csv
+echo "$iva_name,size,power" > power-serial.csv
 for i in "${!iva_arr[@]}"; do
   # Extract all columns from the row for multivariate fitting
   echo "${iva_arr[$i]},${power_serial[$i]}" >> power-serial.csv
 done
+# Sort by power column (last column)
+FILE="power-serial.csv"
+NCOLS=$(head -1 "$FILE" | awk -F',' '{print NF}')
+(head -n 1 "$FILE" && tail -n +2 "$FILE" | sort -t',' -k"$NCOLS" -n) > "${FILE}.tmp" && mv "${FILE}.tmp" "$FILE"
 
 # power-parallel.csv
 echo "core,power" > power-parallel.csv
 for i in "${!core[@]}"; do
   echo "${core[$i]},${power_parallel[$i]}" >> power-parallel.csv
 done
+# Sort by power column (last column)
+FILE="power-parallel.csv"
+NCOLS=$(head -1 "$FILE" | awk -F',' '{print NF}')
+(head -n 1 "$FILE" && tail -n +2 "$FILE" | sort -t',' -k"$NCOLS" -n) > "${FILE}.tmp" && mv "${FILE}.tmp" "$FILE"
 
 # energy-serial.csv
-echo "$iva_name,energy" > energy-serial.csv
+echo "$iva_name,size,energy" > energy-serial.csv
 for i in "${!iva_arr[@]}"; do
   # Extract all columns from the row for multivariate fitting
   echo "${iva_arr[$i]},${energy_serial[$i]}" >> energy-serial.csv
 done
+# Sort by energy column (last column)
+FILE="energy-serial.csv"
+NCOLS=$(head -1 "$FILE" | awk -F',' '{print NF}')
+(head -n 1 "$FILE" && tail -n +2 "$FILE" | sort -t',' -k"$NCOLS" -n) > "${FILE}.tmp" && mv "${FILE}.tmp" "$FILE"
 
 # energy-parallel.csv
 echo "core,energy" > energy-parallel.csv
 for i in "${!core[@]}"; do
   echo "${core[$i]},${energy_parallel[$i]}" >> energy-parallel.csv
 done
+# Sort by energy column (last column)
+FILE="energy-parallel.csv"
+NCOLS=$(head -1 "$FILE" | awk -F',' '{print NF}')
+(head -n 1 "$FILE" && tail -n +2 "$FILE" | sort -t',' -k"$NCOLS" -n) > "${FILE}.tmp" && mv "${FILE}.tmp" "$FILE"
 
 # speedup.csv
 echo "core,time" > speedup.csv
