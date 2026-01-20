@@ -221,6 +221,8 @@ do
   first_col="${iva_cols[0]}"
   remaining_cols="${iva_cols[@]:1}"
 
+  echo "first_col = $first_col remaining_cols = $remaining_cols"
+
   # time
   start=`date +%s.%N`;\
   ./$algo_orig $first_col $first_col $remaining_cols;\
